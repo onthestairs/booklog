@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Book(models.Model):
 	title = models.CharField(max_length=500)
-	isbn = models.CharField(max_length=500, unique=True)
+	isbn = models.CharField(max_length=13, unique=True)
 	image = models.CharField(max_length=500)
 
 	def authors_string(self):
