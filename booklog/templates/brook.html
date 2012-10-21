@@ -56,7 +56,7 @@
 	<h4>Quotes</h4>
 	<ul>
 	{% for quote in quotes %}
-	<li>{{quote.quote}} (pg {{quote.page}})</li>
+	<li>{{quote.quote|linebreaks}} (pg {{quote.page}})</li>
 	{% endfor %}
 
 	<li>
