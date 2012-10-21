@@ -6,6 +6,7 @@ from django.contrib.auth.views import login, logout
 # admin.autodiscover()
 
 urlpatterns = patterns('',
+    url(r'^$', 'books.views.index')
 	url(r'brooks/$', 'books.views.brooks'),
     url(r'register/$', 'books.views.register'),
 	url(r'login/$', login, {'template_name': 'login.html'}),
@@ -17,7 +18,6 @@ urlpatterns = patterns('',
     url(r'brook/add_review/(?P<brook_id>\d+)/$', 'books.views.add_review'),
     url(r'brook/edit_review/(?P<brook_id>\d+)/$', 'books.views.edit_review'),
     url(r'brook/finished/(?P<brook_id>\d+)/$', 'books.views.brook_finished'),
-    url(r'^$', 'books.views.index')
     # Examples:
     # url(r'^$', 'booklog.views.home', name='home'),
     # url(r'^booklog/', include('booklog.foo.urls')),
