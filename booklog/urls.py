@@ -6,7 +6,7 @@ from django.contrib.auth.views import login, logout
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', 'books.views.index')
+    url(r'^$', 'books.views.index'),
 	url(r'brooks/$', 'books.views.brooks'),
     url(r'register/$', 'books.views.register'),
 	url(r'login/$', login, {'template_name': 'login.html'}),
