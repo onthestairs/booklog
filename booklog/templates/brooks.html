@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %} Books {% endblock %}
+
+{% block content %} 
+
+<div class="start_book">
+	<form method="post" action="{% url 'books.views.add_brook' %}">
+	{% csrf_token %}
+	Enter an ISBN: <input type="text" name="isbn" />
+	<input type="submit" value="Start Book" />
+	<input type="hidden" name="next" value="{{ next }}" />
+	</form>
+</div>
+
+<div class="booklist_holder">
+	<h3>Currently Reading</h3>
+	<ol class="booklist">
+	{% for brook in currently_reading %}
+		<li class="book-box">
+			<a href="{% url 'books.views.brook' brook.id %}">
+				<img src="{{ brook.book.image }}"/>
+				<div><span>{{brook.book}} <br /><br /><em>by</em><br /><br /> {{brook.book.authors_string}}</span></div>
+			</a>
+		</li>
+	{% endfor %}
+	</ol>
+</div>
+
+{% for year, brooks in years.items %}
+	<div class="booklist_holder">
+		<h3>{{year}}</h3>
+		<ol class="booklist">
+		{% for brook in brooks %}
+			<li class="book-box">
+			<a href="{% url 'books.views.brook' brook.id %}">
+				<img src="{{ brook.book.image }}"/>
+				<div><span>{{brook.book}} <br /><br /><em>by</em><br /><br /> {{brook.book.authors_string}}</span></div>
+			</a>
+		</li>
+		{% endfor %}
+		</ol>
+	</div>
+{% empty %}
+	<div class="booklist_holder">
+		<p>No current archived books.</p>
+	</div>
+
+{% endfor %}
+
+{% endblock %}

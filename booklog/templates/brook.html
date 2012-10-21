@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+
+{% block title %} Books {% endblock %}
+
+{% block content %}
+
+<h3>{{brook.book.title}} - {{brook.book.authors_string}}</h3>
+
+<div class="top_container">
+	<div class="cover">
+		<img src="{{brook.book.image}}" />
+	</div>
+
+	<div class="review">
+		<h4>Review</h4>
+		{% if review %}
+			<div id="review">{{review.review|linebreaks}}<a href="#edit_review_form" id="edit_review_form_toggle">Edit</a></div>
+			<div id="edit_review_form" style="display: none;">
+				<form method="post" action="{% url 'books.views.edit_review' brook.id %}">
+				{% csrf_token %}
+				{{ ReviewForm.as_p }}
+				<input type="submit" value="Edit" />
+				<input type="hidden" name="next" value="{{ next }}" />
+				<input type="hidden" name="next" value="{{ next }}" />
+				</form>
+			</div>
+			
+
+			<script>
+				$("#edit_review_form_toggle").click(function() {
+					$("#edit_review_form").toggle();
+					$("#review").toggle();
+					$("#edit_review_form_toggle").toggle();
+					return false;
+				});
+			</script>
+
+
+
+			{% else %}
+
+			<div id="add_review_form">
+				<form method="post" action="{% url 'books.views.add_review' brook.id %}">
+				{% csrf_token %}
+				{{ ReviewForm.as_p }}
+				<input type="submit" value="Add" />
+				<input type="hidden" name="next" value="{{ next }}" />
+				</form>
+			</div>
+		{% endif %}
+	</div>
+</div>
+
+<div class="quotes">
+	<h4>Quotes</h4>
+	<ul>
+	{% for quote in quotes %}
+	<li>{{quote.quote}} (pg {{quote.page}})</li>
+	{% endfor %}
+
+	<li>
+		<a href="#add_quote_form" id="add_quote_form_toggle">Add Quote</a>
+		<script>
+		$("#add_quote_form_toggle").click(function () {
+			$("#add_quote_form").toggle();
+			return false;
+		});
+	</script>
+
+		<div id="add_quote_form" style="display: none;">
+			<form method="post" action="{% url 'books.views.add_quote' brook.id %}">
+			{% csrf_token %}
+			{{ QuoteForm.as_p }}
+			<input type="submit" value="Add" />
+			<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+		</div>
+	</li>
+
+	</ul>
+
+</div>
+
+<div class="notes">
+	<h4>Notes</h4>
+	<ul>
+	{% for note in notes %}
+	<li>
+		<h5>{{note.name}}</h5>
+		<p>{{note.note|linebreaks}}</p>
+	</li>
+	{% endfor %}
+
+	<li>
+		<a href="#add_note_form" id="add_note_form_toggle">Add Note</a>
+		<script>
+			$("#add_note_form_toggle").click(function () {
+				$("#add_note_form").toggle();
+				return false;
+			});
+		</script>
+
+
+		<div id="add_note_form" style="display: none;">
+			<form method="post" action="{% url 'books.views.add_note' brook.id %}">
+			{% csrf_token %}
+			{{ NoteForm.as_p }}
+			<input type="submit" value="Add" />
+			<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+		</div>
+	</li>
+
+	</ul>
+
+</div>
+
+{% if not brook.date_finished %}
+<p><a href="{% url 'books.views.brook_finished' brook.id %}">Finished</a></p>
+{% endif %}
+
+
+{% endblock %}
