@@ -4,12 +4,10 @@ DEBUG = TEMPLATE_DEBUG = False
 
 DATABASES = {
     'default': {
-         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'ENGINE': 'django.db.backends.mysql',
          'NAME': 'booklog',
          'USER': 'booklog',
-         'PASSWORD':'password',
-         'HOST' : '',
-         'PORT' : '',
+         'PASSWORD':'epilogg',
      }
 }
 
