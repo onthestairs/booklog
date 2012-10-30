@@ -8,9 +8,11 @@
 <h3>{{brook.book.title}} - {{brook.book.authors_string}}</h3>
 
 <div class="top_container">
+	{% if brook.book.image %}
 	<div class="cover">
-		<img src="{% firstof brook.book.image '/static/images/no_book.png' %}" />
+		<img src="{{ brook.book.image }}" />
 	</div>
+	{% endif %}
 
 	<div class="review">
 		<h4>Review</h4>

@@ -101,6 +101,10 @@ h2 a:hover {
 	opacity: 1;
 }
 
+.visible {
+	display: inline;
+}
+
 .book-box span{
 	background-color: white;
 	color: black;

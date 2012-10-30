@@ -1,0 +1,8 @@
+<li class="book-box">
+	<a href="{% url 'books.views.brook' brook.id %}">
+	{% if brook.book.image %}
+		<img src="{{ brook.book.image }}"/>
+	{% endif %}
+	<div{% if not brook.book.image %} style="display:block"{% endif %}><span>{{brook.book}} <br /><br /><em>by</em><br /><br /> {{brook.book.authors_string}}</span></div>
+	</a>
+</li>

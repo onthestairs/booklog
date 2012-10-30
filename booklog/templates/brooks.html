@@ -18,12 +18,7 @@
 	<h3>Currently Reading</h3>
 	<ol class="booklist">
 	{% for brook in currently_reading %}
-		<li class="book-box">
-			<a href="{% url 'books.views.brook' brook.id %}">
-				<img src="{% firstof brook.book.image '/static/images/no_book.png' %}"/>
-				<div><span>{{brook.book}} <br /><br /><em>by</em><br /><br /> {{brook.book.authors_string}}</span></div>
-			</a>
-		</li>
+		{% include "snippets/book_list_item.html" with brook=brook %}
 	{% endfor %}
 	</ol>
 </div>
@@ -33,12 +28,7 @@
 		<h3>{{year}}</h3>
 		<ol class="booklist">
 		{% for brook in brooks %}
-			<li class="book-box">
-			<a href="{% url 'books.views.brook' brook.id %}">
-				<img src="{% firstof brook.book.image '/static/images/no_book.png' %}"/>
-				<div><span>{{brook.book}} <br /><br /><em>by</em><br /><br /> {{brook.book.authors_string}}</span></div>
-			</a>
-		</li>
+			{% include "snippets/book_list_item.html" with brook=brook %}
 		{% endfor %}
 		</ol>
 	</div>
