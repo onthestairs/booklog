@@ -157,7 +157,11 @@ def add_brook(request):
 		except KeyError:
 			print "NO BOOK FOUND FFS"
 			return HttpResponseRedirect(reverse('books.views.brooks'))
-		book = Book(isbn=isbn, title=ol_book.title, image=ol_book.cover['medium'])
+		if ol_book.cover is not None:
+			image = ol_book['medium']
+		else:
+			image = ''
+		book = Book(isbn=isbn, title=ol_book.title, image=image)
 		book.save()
 		for a in ol_book.authors:
 			try:

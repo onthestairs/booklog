@@ -9,7 +9,7 @@
 
 <div class="top_container">
 	<div class="cover">
-		<img src="{{brook.book.image}}" />
+		<img src="{% firstof brook.book.image '/static/images/no_book.png' %}" />
 	</div>
 
 	<div class="review">

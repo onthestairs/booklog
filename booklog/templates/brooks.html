@@ -11,7 +11,7 @@
 	<input type="submit" value="Start Book" />
 	<input type="hidden" name="next" value="{{ next }}" />
 	</form>
-	<em>(Note: The information is gathered from openlibrary.com. If there is not a page for the book you would like to add, please add it to the openlibrary database.)</em>
+	<em>(Note: The information is gathered from openlibrary.com. If there is not a page for the book you submitted, please <a href="http://openlibrary.org/books/add">add it</a> to the openlibrary database.)</em>
 </div>
 
 <div class="booklist_holder">
@@ -20,7 +20,7 @@
 	{% for brook in currently_reading %}
 		<li class="book-box">
 			<a href="{% url 'books.views.brook' brook.id %}">
-				<img src="{{ brook.book.image }}"/>
+				<img src="{% firstof brook.book.image '/static/images/no_book.png' %}"/>
 				<div><span>{{brook.book}} <br /><br /><em>by</em><br /><br /> {{brook.book.authors_string}}</span></div>
 			</a>
 		</li>
@@ -35,7 +35,7 @@
 		{% for brook in brooks %}
 			<li class="book-box">
 			<a href="{% url 'books.views.brook' brook.id %}">
-				<img src="{{ brook.book.image }}"/>
+				<img src="{% firstof brook.book.image '/static/images/no_book.png' %}"/>
 				<div><span>{{brook.book}} <br /><br /><em>by</em><br /><br /> {{brook.book.authors_string}}</span></div>
 			</a>
 		</li>
