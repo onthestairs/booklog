@@ -172,7 +172,7 @@ def add_brook(request):
 			print "NO BOOK FOUND FFS"
 			return HttpResponseRedirect(reverse('books.views.brooks'))
 		if ol_book.cover is not None:
-			image = ol_book['medium']
+			image = ol_book.cover['medium']
 		else:
 			image = ''
 		book = Book(isbn=isbn, title=ol_book.title, image=image)
