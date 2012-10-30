@@ -24,7 +24,7 @@ class Brook(models.Model):
 	book = models.ForeignKey(Book)
 	user = models.ForeignKey(User)
 	date_started = models.DateField()
-	date_finished = models.DateField(null=True)
+	date_finished = models.DateField(null=True, blank=True)
 
 class QuoteManager(models.Manager):
     def in_page_order(self, *args, **kwargs):

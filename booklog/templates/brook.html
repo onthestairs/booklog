@@ -116,9 +116,33 @@
 
 </div>
 
-{% if not brook.date_finished %}
-<p><a href="{% url 'books.views.brook_finished' brook.id %}">Finished</a></p>
-{% endif %}
+<form method="post" action="{% url 'books.views.change_brook_dates' brook.id %}">
+	{% csrf_token %}
+	{{ DatesForm.as_p }}
+	<input type="submit" value="Change Dates" />
+	<input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+
+
+<script>
+    $(function() {
+        $("#id_date_started").datepicker({
+            changeMonth: true,
+            dateFormat: 'dd/mm/y',
+            onClose: function( selectedDate ) {
+                $( "#id_date_finished" ).datepicker( "option", "minDate", selectedDate );
+            }
+        });
+        $("#id_date_finished").datepicker({
+            changeMonth: true,
+            dateFormat: 'dd/mm/y',
+            onClose: function( selectedDate ) {
+                $( "#id_date_started" ).datepicker( "option", "maxDate", selectedDate );
+            }
+        });
+    });
+    </script>
 
 
 {% endblock %}

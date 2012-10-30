@@ -121,3 +121,12 @@ h2 a:hover {
 	display: block;
 	margin-bottom: 20px;
 }
+
+.ui-datepicker {
+	font-family: inherit;
+	font-size: 0.6em;
+}
+
+a {
+	color: inherit;
+}

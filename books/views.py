@@ -72,6 +72,7 @@ def brook(request, brook_id):
 	notes = brook.note_set.all().order_by('order')
 	quote_form = QuoteForm()
 	note_form = NoteForm()
+	dates_form = DatesForm(instance=brook)
 	
 	try:
 		review = brook.review
@@ -81,7 +82,7 @@ def brook(request, brook_id):
 	else:
 		review_form = ReviewForm(instance=review)
 
-	return render(request, 'brook.html',{'brook':brook, 'quotes':quotes, 'review':review, 'notes':notes, 'QuoteForm':quote_form, 'NoteForm':note_form, 'ReviewForm':review_form})
+	return render(request, 'brook.html',{'brook':brook, 'quotes':quotes, 'review':review, 'notes':notes, 'QuoteForm':quote_form, 'NoteForm':note_form, 'ReviewForm':review_form, 'DatesForm':dates_form})
 
 @login_required
 @user_brook_ok_decorator
@@ -138,8 +139,21 @@ def edit_review(request, brook_id):
 @user_brook_ok_decorator
 def brook_finished(request, brook_id):
 	brook = get_object_or_404(Brook, pk=brook_id)
-	brook.date_finished = timezone.now()
-	brook.save()
+	dates_form = DatesForm(request.POST,instance=brook)
+	if dates_form.is_valid():
+		brook = dates_form.save()
+	return HttpResponseRedirect('/brook/'+brook_id)
+
+@login_required
+@user_brook_ok_decorator
+def change_brook_dates(request, brook_id):
+	if not request.method == 'POST':
+		return HttpResponseRedirect('/brook/'+brook_id)
+	brook = get_object_or_404(Brook, pk=brook_id)
+	dates_form = DatesForm(request.POST,instance=brook)
+	if dates_form.is_valid():
+		brook = dates_form.save()
+	print dates_form.errors
 	return HttpResponseRedirect('/brook/'+brook_id)
 
 @login_required
@@ -175,3 +189,4 @@ def add_brook(request):
 	brook = Brook(user=request.user, book=book, date_started=timezone.now())
 	brook.save()
 	return HttpResponseRedirect(reverse('books.views.brook', args=(brook.id,)))
+

@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     url(r'brook/add_note/(?P<brook_id>\d+)/$', 'books.views.add_note'),
     url(r'brook/add_review/(?P<brook_id>\d+)/$', 'books.views.add_review'),
     url(r'brook/edit_review/(?P<brook_id>\d+)/$', 'books.views.edit_review'),
-    url(r'brook/finished/(?P<brook_id>\d+)/$', 'books.views.brook_finished'),
+    url(r'brook/change_dates/(?P<brook_id>\d+)/$', 'books.views.change_brook_dates'),
     # Examples:
     # url(r'^$', 'booklog.views.home', name='home'),
     # url(r'^booklog/', include('booklog.foo.urls')),

@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Textarea
+from django.forms import ModelForm, Textarea, DateInput
 from books.models import *
 
 class UserField(forms.CharField):
@@ -52,3 +52,13 @@ class NoteForm(ModelForm):
 		widgets = {
             'note': Textarea(attrs={'cols': 80, 'rows': 4}),
         }
+
+class DatesForm(ModelForm):
+
+	class Meta:
+		model = Brook
+		fields = ('date_started', 'date_finished')
+		widgets = {
+			'date_started': DateInput(format='%d/%m/%y', attrs={'class':'datePicker', 'readonly':'true'}),
+			'date_finished': DateInput(format='%d/%m/%y', attrs={'class':'datePicker', 'readonly':'true'})
+		}
