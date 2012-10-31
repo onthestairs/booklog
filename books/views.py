@@ -9,6 +9,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from books.models import *
 from books.forms import *
+from books.utils import *
 import openlibrary
 
 def index(request):
@@ -160,7 +161,7 @@ def change_brook_dates(request, brook_id):
 def add_brook(request):
 	if not request.method == 'POST':
 		return HttpResponseRedirect(reverse('books.views.brooks'))
-	isbn = request.POST['isbn']
+	isbn = strip_non_numeric(request.POST['isbn'])
 	api = openlibrary.Api()
 	#check if already in db
 	try:
