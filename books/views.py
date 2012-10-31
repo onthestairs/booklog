@@ -165,7 +165,7 @@ def add_brook(request):
 	api = openlibrary.Api()
 	#check if already in db
 	try:
-		book = Books.objects.get(isbn=isbn)
+		book = Book.objects.get(isbn=isbn)
 	except:
 		try:
 			ol_book = api.get_book(isbn)
