@@ -56,12 +56,13 @@
 
 <div class="quotes">
 	<h4>Quotes</h4>
-	<ul>
+
 	{% for quote in quotes %}
-	<li>{{quote.quote|linebreaks}} (pg {{quote.page}})</li>
+	{{quote.quote|add:' (pg '|add:quote.page|add:')'|linebreaks}}
+	<hr />
 	{% endfor %}
 
-	<li>
+	
 		<a href="#add_quote_form" id="add_quote_form_toggle">Add Quote</a>
 		<script>
 		$("#add_quote_form_toggle").click(function () {
@@ -78,9 +79,6 @@
 			<input type="hidden" name="next" value="{{ next }}" />
 			</form>
 		</div>
-	</li>
-
-	</ul>
 
 </div>
 
@@ -117,6 +115,8 @@
 	</ul>
 
 </div>
+
+<h4>Admin</h4>
 
 <form method="post" action="{% url 'books.views.change_brook_dates' brook.id %}">
 	{% csrf_token %}
