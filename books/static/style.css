@@ -161,3 +161,7 @@ hr {
 .review_box {
 	width: 100%;
 }
+
+.filter {
+	clear: both;
+}

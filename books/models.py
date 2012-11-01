@@ -8,6 +8,15 @@ class Book(models.Model):
 	isbn = models.CharField(max_length=13, unique=True)
 	image = models.CharField(max_length=500)
 
+	def keywords(self):
+		keywords = self.title.lower().split()
+		for a in self.authors():
+			keywords += a.name.lower().split()
+		return keywords
+
+	def authors(self):
+		return self.author_set.all()
+
 	def authors_string(self):
 		return ', '.join([author.name for author in self.author_set.all()])
 

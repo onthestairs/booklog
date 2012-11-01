@@ -37,7 +37,35 @@
 	<div class="booklist_holder">
 		<p>No current archived books.</p>
 	</div>
-
 {% endfor %}
+
+<div class="filter">
+	Filter books: <input type="text" name="filter_books" id="filter_books" />
+	<script>
+		$("#filter_books").keyup(function () {
+			$('.booklist_holder li').each(function(index) {
+						var q = $("#filter_books").val().toLowerCase();
+						var qs = q.split(' ');
+						var kwds = $(this).attr('data-keywords').split(',');
+						var matches = 0;
+						for (var i=0; i < qs.length; i++) {
+							for (var j=0; j < kwds.length; j++) {
+								if( kwds[j].indexOf(qs[i]) !== -1 ) {
+									matches++;
+									break;
+								}
+							}
+						}
+						if(matches == qs.length) {
+							$(this).show();
+						}
+						else {
+							$(this).hide()
+						}					
+						return true;
+					});
+		});
+	</script>
+</div>
 
 {% endblock %}
