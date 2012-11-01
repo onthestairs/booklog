@@ -41,17 +41,13 @@ def brooks(request):
 	user = request.user
 	brooks = user.brook_set.all().order_by('-date_finished','-date_started')
 	currently_reading = []
-	years = {}
+	finished_reading = []
 	for brook in brooks:
 		if not brook.date_finished:
 			currently_reading.append(brook)
 		else:
-			year = brook.date_finished.strftime('%Y')
-			if year in years:
-				years[year].append(brook)
-			else:
-				years[year] = [brook]
-	return render(request, 'brooks.html', {'currently_reading':currently_reading, 'years':years} )
+			finished_reading.append(brook)
+	return render(request, 'brooks.html', {'currently_reading':currently_reading, 'finished_reading':finished_reading} )
 				
 # here is a decorater to see if a user can access a brook
 def user_brook_ok_decorator(f):
@@ -136,14 +132,14 @@ def edit_review(request, brook_id):
 		# review.save()
 	return HttpResponseRedirect('/brook/'+brook_id)
 
-@login_required
-@user_brook_ok_decorator
-def brook_finished(request, brook_id):
-	brook = get_object_or_404(Brook, pk=brook_id)
-	dates_form = DatesForm(request.POST,instance=brook)
-	if dates_form.is_valid():
-		brook = dates_form.save()
-	return HttpResponseRedirect('/brook/'+brook_id)
+# @login_required
+# @user_brook_ok_decorator
+# def brook_finished(request, brook_id):
+# 	brook = get_object_or_404(Brook, pk=brook_id)
+# 	dates_form = DatesForm(request.POST,instance=brook)
+# 	if dates_form.is_valid():
+# 		brook = dates_form.save()
+# 	return HttpResponseRedirect('/brook/'+brook_id)
 
 @login_required
 @user_brook_ok_decorator

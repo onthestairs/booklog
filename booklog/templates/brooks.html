@@ -23,11 +23,12 @@
 	</ol>
 </div>
 
-{% for year, brooks in years.items %}
+{% regroup finished_reading by date_finished.year as year_list %}
+{% for year in year_list %}
 	<div class="booklist_holder">
-		<h3>{{year}}</h3>
+		<h3>{{year.grouper}}</h3>
 		<ol class="booklist">
-		{% for brook in brooks %}
+		{% for brook in year.list %}
 			{% include "snippets/book_list_item.html" with brook=brook %}
 		{% endfor %}
 		</ol>
