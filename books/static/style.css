@@ -162,6 +162,6 @@ hr {
 	width: 100%;
 }
 
-.filter {
+.filter, .start_book {
 	clear: both;
 }

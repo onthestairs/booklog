@@ -4,40 +4,6 @@
 
 {% block content %} 
 
-<div class="start_book">
-	<form method="post" action="{% url 'books.views.add_brook' %}">
-	{% csrf_token %}
-	Enter an ISBN: <input type="text" name="isbn" />
-	<input type="submit" value="Start Book" />
-	<input type="hidden" name="next" value="{{ next }}" />
-	</form>
-	<em>(Note: The information is gathered from openlibrary.com. If there is not a page for the book you submitted, please <a href="http://openlibrary.org/books/add">add it</a> to the openlibrary database.)</em>
-</div>
-
-<div class="booklist_holder">
-	<h3>Currently Reading</h3>
-	<ol class="booklist">
-	{% for brook in currently_reading %}
-		{% include "snippets/book_list_item.html" with brook=brook %}
-	{% endfor %}
-	</ol>
-</div>
-
-{% regroup finished_reading by date_finished.year as year_list %}
-{% for year in year_list %}
-	<div class="booklist_holder">
-		<h3>{{year.grouper}}</h3>
-		<ol class="booklist">
-		{% for brook in year.list %}
-			{% include "snippets/book_list_item.html" with brook=brook %}
-		{% endfor %}
-		</ol>
-	</div>
-{% empty %}
-	<div class="booklist_holder">
-		<p>No current archived books.</p>
-	</div>
-{% endfor %}
 
 <div class="filter">
 	Filter books: <input type="text" name="filter_books" id="filter_books" />
@@ -66,6 +32,41 @@
 					});
 		});
 	</script>
+</div>
+
+<div class="booklist_holder">
+	<h3>Currently Reading</h3>
+	<ol class="booklist">
+	{% for brook in currently_reading %}
+		{% include "snippets/book_list_item.html" with brook=brook %}
+	{% endfor %}
+	</ol>
+</div>
+
+{% regroup finished_reading by date_finished.year as year_list %}
+{% for year in year_list %}
+	<div class="booklist_holder">
+		<h3>{{year.grouper}}</h3>
+		<ol class="booklist">
+		{% for brook in year.list %}
+			{% include "snippets/book_list_item.html" with brook=brook %}
+		{% endfor %}
+		</ol>
+	</div>
+{% empty %}
+	<div class="booklist_holder">
+		<p>No current archived books.</p>
+	</div>
+{% endfor %}
+
+<div class="start_book">
+	<form method="post" action="{% url 'books.views.add_brook' %}">
+	{% csrf_token %}
+	Enter an ISBN: <input type="text" name="isbn" />
+	<input type="submit" value="Start Book" />
+	<input type="hidden" name="next" value="{{ next }}" />
+	</form>
+	<em>(Note: The information is gathered from openlibrary.com. If there is not a page for the book you submitted, please <a href="http://openlibrary.org/books/add">add it</a> to the openlibrary database.)</em>
 </div>
 
 {% endblock %}
