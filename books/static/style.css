@@ -40,9 +40,13 @@ h4 {
 	margin: 0px;
 }
 
-.quotes {
+.quotes, .review {
 	margin-top: 10px;
 	clear: left;
+}
+
+.cover img {
+	height: 100px;
 }
 
 .notes > ul {
@@ -135,7 +139,7 @@ a {
 	color: inherit;
 }
 
-ul, ol {
+ul, {
 	list-style-type: none;
 	margin: 0; 
 	padding: 0;
@@ -152,4 +156,8 @@ hr {
 
 .quotes {
 	margin-bottom: 20px;
+}
+
+.review_box {
+	width: 100%;
 }

@@ -5,52 +5,14 @@
 
 {% block content %}
 
-<h3>{{brook.book.title}} - {{brook.book.authors_string}}</h3>
-
-<div class="top_container">
+<div id="book_info">
 	{% if brook.book.image %}
 	<div class="cover">
 		<img src="{{ brook.book.image }}" />
 	</div>
 	{% endif %}
-
-	<div class="review">
-		<h4>Review</h4>
-		{% if review %}
-			<div id="review">{{review.review|linebreaks}}<a href="#edit_review_form" id="edit_review_form_toggle">Edit</a></div>
-			<div id="edit_review_form" style="display: none;">
-				<form method="post" action="{% url 'books.views.edit_review' brook.id %}">
-				{% csrf_token %}
-				{{ ReviewForm.as_p }}
-				<input type="submit" value="Edit" />
-				<input type="hidden" name="next" value="{{ next }}" />
-				<input type="hidden" name="next" value="{{ next }}" />
-				</form>
-			</div>
-			
-
-			<script>
-				$("#edit_review_form_toggle").click(function() {
-					$("#edit_review_form").toggle();
-					$("#review").toggle();
-					$("#edit_review_form_toggle").toggle();
-					return false;
-				});
-			</script>
-
-
-
-			{% else %}
-
-			<div id="add_review_form">
-				<form method="post" action="{% url 'books.views.add_review' brook.id %}">
-				{% csrf_token %}
-				{{ ReviewForm.as_p }}
-				<input type="submit" value="Add" />
-				<input type="hidden" name="next" value="{{ next }}" />
-				</form>
-			</div>
-		{% endif %}
+	<div id="title">
+		<p>{{brook.book.title}} <br/><br/> <em>by</em> <br/><br/> {{brook.book.authors_string}}</p>
 	</div>
 </div>
 
@@ -115,6 +77,46 @@
 	</ul>
 
 </div>
+
+<div class="review">
+	<h4>Review</h4>
+	{% if review %}
+		<div id="review">{{review.review|linebreaks}}<a href="#edit_review_form" id="edit_review_form_toggle">Edit</a></div>
+		<div id="edit_review_form" style="display: none;">
+			<form method="post" action="{% url 'books.views.edit_review' brook.id %}">
+			{% csrf_token %}
+			{{ ReviewForm.as_p }}
+			<input type="submit" value="Edit" />
+			<input type="hidden" name="next" value="{{ next }}" />
+			<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+		</div>
+		
+
+		<script>
+			$("#edit_review_form_toggle").click(function() {
+				$("#edit_review_form").toggle();
+				$("#review").toggle();
+				$("#edit_review_form_toggle").toggle();
+				return false;
+			});
+		</script>
+
+
+
+		{% else %}
+
+		<div id="add_review_form">
+			<form method="post" action="{% url 'books.views.add_review' brook.id %}">
+			{% csrf_token %}
+			{{ ReviewForm.as_p }}
+			<input type="submit" value="Add" />
+			<input type="hidden" name="next" value="{{ next }}" />
+			</form>
+		</div>
+	{% endif %}
+</div>
+
 
 <h4>Admin</h4>
 

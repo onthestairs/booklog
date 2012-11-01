@@ -36,7 +36,7 @@ class QuoteForm(ModelForm):
         }
 
 class ReviewForm(ModelForm):
-	review = forms.CharField(widget=Textarea(attrs={'cols': 100, 'rows': 8, 'classs': "review_box"}), label='')
+	review = forms.CharField(widget=Textarea(attrs={'cols': 100, 'rows': 8, 'class': "review_box"}), label='')
 	
 	class Meta:
 		model = Review
