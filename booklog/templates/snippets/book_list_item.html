@@ -1,5 +1,5 @@
 <li class="book-box" data-keywords="{{ brook.book.keywords|join:"," }}">
-	<a href="{% url 'books.views.brook' brook.id %}">
+	<a href="{% url books.views.brook brook.id %}">
 	{% if brook.book.image %}
 		<img src="{{ brook.book.image }}"/>
 	{% endif %}
