@@ -60,7 +60,7 @@
 {% endfor %}
 
 <div class="start_book">
-	<form method="post" action="{% url 'books.views.add_brook' %}">
+	<form method="post" action="{% url books.views.add_brook %}">
 	{% csrf_token %}
 	Enter an ISBN: <input type="text" name="isbn" />
 	<input type="submit" value="Start Book" />

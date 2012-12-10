@@ -10,17 +10,17 @@
 	</head>
 	<body>
 		<div id="header">
-			<h2><em><a href="{% url 'books.views.index' %}">Epilogg</a></em></h2>
+			<h2><em><a href="{% url books.views.index %}">Epilogg</a></em></h2>
 		</div>
 
 		{% block content %}{% endblock %}
 
 	<div id="footer">
 		{% if user.is_authenticated %}
-		<a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a>
+		<a href="{% url django.contrib.auth.views.logout %}">Logout</a>
 		{% else %}
-		<a href="{% url 'django.contrib.auth.views.login' %}">Login</a> / 
-		<a href="{% url 'books.views.register' %}">Register</a>
+		<a href="{% url django.contrib.auth.views.login %}">Login</a> / 
+		<a href="{% url books.views.register %}">Register</a>
 		{% endif %}
 	</div>
 	</body>

@@ -34,7 +34,7 @@
 	</script>
 
 		<div id="add_quote_form" style="display: none;">
-			<form method="post" action="{% url 'books.views.add_quote' brook.id %}">
+			<form method="post" action="{% url books.views.add_quote brook.id %}">
 			{% csrf_token %}
 			{{ QuoteForm.as_p }}
 			<input type="submit" value="Add" />
@@ -61,7 +61,7 @@
 
 
 	<div id="add_note_form" style="display: none;">
-		<form method="post" action="{% url 'books.views.add_note' brook.id %}">
+		<form method="post" action="{% url books.views.add_note brook.id %}">
 		{% csrf_token %}
 		{{ NoteForm.as_p }}
 		<input type="submit" value="Add" />
@@ -75,7 +75,7 @@
 	{% if review %}
 		<div id="review">{{review.review|linebreaks}}<a href="#edit_review_form" id="edit_review_form_toggle">Edit</a></div>
 		<div id="edit_review_form" style="display: none;">
-			<form method="post" action="{% url 'books.views.edit_review' brook.id %}">
+			<form method="post" action="{% url books.views.edit_review brook.id %}">
 			{% csrf_token %}
 			{{ ReviewForm.as_p }}
 			<input type="submit" value="Edit" />
@@ -99,7 +99,7 @@
 		{% else %}
 
 		<div id="add_review_form">
-			<form method="post" action="{% url 'books.views.add_review' brook.id %}">
+			<form method="post" action="{% url books.views.add_review brook.id %}">
 			{% csrf_token %}
 			{{ ReviewForm.as_p }}
 			<input type="submit" value="Add" />
@@ -112,7 +112,7 @@
 
 <h4>Admin</h4>
 
-<form method="post" action="{% url 'books.views.change_brook_dates' brook.id %}">
+<form method="post" action="{% url books.views.change_brook_dates brook.id %}">
 	{% csrf_token %}
 	{{ DatesForm.as_p }}
 	<input type="submit" value="Change Dates" />
