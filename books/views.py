@@ -157,14 +157,27 @@ def change_brook_dates(request, brook_id):
 def add_brook(request):
 	if not request.method == 'POST':
 		return HttpResponseRedirect(reverse('books.views.brooks'))
-	isbn = strip_non_numeric(request.POST['isbn'])
-	api = openlibrary.Api()
+
+	#have we got a book which isn't an isbn but an OLID?
+	book_id = request.POST['isbn']
+
+	print book_id[:4]
+
+	if book_id[:5] == 'OLID:':
+		book_id = book_id[5:]
+		id_type = 'OLID'
+	else:
+		book_id = strip_non_numeric(book_id)
+		id_type = 'ISBN'
+
+	print book_id, id_type
 	#check if already in db
 	try:
 		book = Book.objects.get(isbn=isbn)
 	except:
+		api = openlibrary.Api()
 		try:
-			ol_book = api.get_book(isbn)
+			ol_book = api.get_book(book_id, bibkey = id_type)
 		except KeyError:
 			print "NO BOOK FOUND FFS"
 			return HttpResponseRedirect(reverse('books.views.brooks'))
@@ -172,7 +185,7 @@ def add_brook(request):
 			image = ol_book.cover['medium']
 		else:
 			image = ''
-		book = Book(isbn=isbn, title=ol_book.title, image=image)
+		book = Book(isbn=book_id, title=ol_book.title, image=image)
 		book.save()
 		for a in ol_book.authors:
 			try:
